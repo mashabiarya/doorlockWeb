@@ -1,130 +1,100 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller 
+class Auth extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('Auth_m', 'auth');
+        // $this->load->model('Base_model', 'base');
     }
+
+    private function _has_login()
+    {
+        if ($this->session->has_userdata('login_session')) {
+            redirect('dashboard');
+        }
+    }
+
     public function index()
     {
-        if ($this->session->userdata('email')){
-            redirect('user');
-        }
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->_has_login();
+
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
-        if($this->form_validation->run() == false){
 
-            $data['title'] = 'Login';
-            $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/login');
-            $this->load->view('templates/auth_footer');
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Login Aplikasi';
+            $this->template->load('temp/tempauth', 'auth/login', $data);
         } else {
-            //validasi sukses
-            $this->_login();
-        }
-    }
+            $input = $this->input->post(null, true);
 
-
-    private function _login()
-    {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
-
-        if($user){
-            if($user['is_active'] == 1 ){
-                if(password_verify($password, $user['password'])){
-                    $data = [
-                        'email' => $user['email'],
-                        'role_id' => $user['role_id']
-                    ];
-                    $this->session->set_userdata($data);
-                    if($user['role_id'] == 1){
-                        redirect('Admin');
-                    }else{
-                        
-                        redirect('User');
-                        
+            $cek_email = $this->auth->cek_email($input['email']);
+            if ($cek_email > 0) {
+                $password = $this->auth->get_password($input['email']);
+                if (password_verify($input['password'], $password)) {
+                    $user_db = $this->auth->userdata($input['email']);
+                    if ($user_db['is_active'] != 1) {
+                        set_pesan('akun anda belum aktif/dinonaktifkan. Silahkan hubungi admin.', false);
+                        redirect('auth');
+                    } else {
+                        $userdata = [
+                            'user'  => $user_db['id'],
+                            'role_id'  => $user_db['role_id'],
+                            'timestamp' => time()
+                        ];
+                        $this->session->set_userdata('login_session', $userdata);
+                        redirect('dashboard');
                     }
-                    redirect('User');
-                    
-
-                }else{
-                    $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">
-                    Wrong Password !!!  </div>');
+                } else {
+                    set_pesan('password salah', false);
                     redirect('auth');
-                    
                 }
-
             } else {
-            $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">
-            This email has not been activated!!!  </div>');
-            redirect('auth');
+                set_pesan('username belum terdaftar', false);
+                redirect('auth');
             }
-
-        }else{
-            $this->session->set_flashdata('message','<div class="alert alert-danger" role="alert">
-            Email is not registered!!! </div>');
-            redirect('auth');
         }
     }
 
-    public function registration()
-    {
-        if ($this->session->userdata('email')){
-            redirect('user');
-        }
-        $this->form_validation->set_rules('name', 'Name', 'required|trim');
-        $this->form_validation->set_rules('phone', 'Phone', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-            'is_unique' => 'This email has already registered!'
-        ]);
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'password dont matches!',
-            'min_length' => 'password too short!'
-        ]);
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-
-        if( $this->form_validation->run() == false){
-            $data['title'] = 'Regis';
-            $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/registration');
-            $this->load->view('templates/auth_footer');
-        } else {
-            $data = [
-                'name' => htmlspecialchars($this->input->post('name', true)),
-                'phone' => htmlspecialchars($this->input->post('phone', true)),
-                'email' => htmlspecialchars($this->input->post('email', true)),
-                'image' => 'default.jpg',
-                'password' => password_hash($this->input->post('password1'),
-                PASSWORD_DEFAULT),
-                'role_id' => 2,
-                'is_active' => 1,
-                'date_created' => time()
-            ];
-
-            $this->db->insert('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Selamat ! akun anda telah dibuat, silahkan Login
-          </div>');
-            redirect('auth');
-
-        }
-    }
-    
-    
     public function logout()
     {
-        $this->session->unset_userdata('email');
-        $this->session->unset_userdata('role_id');
+        $this->session->unset_userdata('login_session');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            You have been logged out!
-          </div>');
-            redirect('auth');
+        set_pesan('anda telah berhasil logout');
+        redirect('auth');
+    }
+
+    public function register()
+    {
+        // $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|alpha_numeric');
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
+        $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('phone', 'Phone', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Buat Akun';
+            $this->template->load('temp/tempauth', 'auth/registration', $data);
+        } else {
+            $input = $this->input->post(null, true);
+            unset($input['password2']);
+            $input['password']      = password_hash($input['password'], PASSWORD_DEFAULT);
+            $input['role_id']          = '2';
+            $input['image']          = 'default.jpg';
+            $input['is_active']     = 0;
+
+            $query = $this->auth->insert('user', $input);
+            if ($query) {
+                set_pesan('daftar berhasil. Selanjutnya silahkan hubungi admin untuk mengaktifkan akun anda.');
+                redirect('auth');
+            } else {
+                set_pesan('gagal menyimpan ke database', false);
+                redirect('register');
+            }
+        }
     }
 }

@@ -74,11 +74,27 @@
                     <span>History</span></a>
             </li>
 
+
+
+            <?php if (is_admin()) { ?>
+                <hr class="sidebar-divider">
+                <div class="sidebar-heading">
+                    Users Management
+                </div>
+
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('user') ?>">
+                        <i class="fas fa-fw fa-users"></i>
+                        <span>User</span></a>
+                </li>
+            <?php } ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('auth/logout') ?>">
+                <a class="nav-link" href="<?= site_url('auth/logout') ?>">
                     <i class="fas fa-fw fa-sign-out-alt"></i>
                     <span>Logout</span></a>
             </li>
@@ -116,9 +132,10 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">INI NAMA</span>
-                                <img class="img-profile rounded-circle" src="">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= userdata('name') ?></span>
+                                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/profile/') . userdata('image') ?>">
                             </a>
+
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="<?= base_url('auth/logout') ?>" data-toggle="modal" data-target="#logoutModal">
@@ -132,7 +149,9 @@
 
                 </nav>
                 <!-- End of Topbar -->
-                <?= $contents ?>
+                <div class="container-fluid">
+                    <?= $contents ?>
+                </div>
 
             </div>
             <!-- End of Main Content -->
