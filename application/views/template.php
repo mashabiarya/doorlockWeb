@@ -62,7 +62,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('user/employee') ?>">
+                <a class="nav-link" href="<?= base_url('karyawan') ?>">
                     <i class="fa-solid fa-users"></i>
                     <span>Employee Management</span></a>
             </li>
