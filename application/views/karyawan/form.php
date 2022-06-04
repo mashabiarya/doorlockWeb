@@ -36,7 +36,7 @@
                         <label class="col-md-4 text-md-right" for="username">Nama Depan</label>
                         <div class="col-md-6">
                             <input value="<?= $row->first_name ?>" type="text" id="username" name="first_name" class="form-control" placeholder="Nama Depan">
-                            <input type="text" value="<?= $row->nip ?>"name="nipedit">
+                            <input type="hidden" value="<?= $row->nip ?>"name="nipedit">
                             <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                     </div>
