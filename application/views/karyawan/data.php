@@ -14,7 +14,7 @@
                             <i class="fa fa-user-plus"></i>
                         </span>
                         <span class="text">
-                            Tambah User
+                            Tambah Karyawan
                         </span>
                     </a>
                 </div><br>

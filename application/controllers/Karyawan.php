@@ -56,7 +56,7 @@ class Karyawan extends CI_Controller
         $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
 
         $data = array(
-            'title' => 'Tambah Karyawan',
+            'title' => 'Edit Karyawan',
             'page' => 'edit',
             'row' => $karyawan,
             'nip' => $number
