@@ -34,6 +34,22 @@ class User_m extends CI_Model
         return $query;
     }
 
+    public function add($post)
+    {
+        $params = [
+            'id' => $post['id'],
+            'name' => $post['name'],
+            'phone' => $post['phone'],
+            'email' => $post['email'],
+            'image' => $post['image'],
+            'password' => $post['password'],
+            'role_id' => $post['role_id'],
+            'is_active' => $post['is_active'],
+            'date_created' => $post['date_created']
+        ];
+        $this->db->insert('user', $params);
+    }
+
     public function delete($table, $pk, $id)
     {
         return $this->db->delete($table, [$pk => $id]);

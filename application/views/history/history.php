@@ -18,6 +18,8 @@
                             <th>Snr</th>
                             <th>Mac Address</th>
                             <th>Uid Card</th>
+                            <th>Waktu Transaksi</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +32,11 @@
                                 <td><?= $data->snr ?></td>
                                 <td><?= $data->macAddr ?></td>
                                 <td><?= $data->uidCard ?></td>
+                                <td><?= $data->datime ?></td>
+                                <td>
+                                    <a href="" class="btn btn-circle btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></a>
+                                    <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('history/del/') . $data->id ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                                </td>
                             </tr>
                         <?php  } ?>
                     </tbody>

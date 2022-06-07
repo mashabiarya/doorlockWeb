@@ -18,4 +18,11 @@ class History extends CI_Controller
         $data['history'] = $this->history->get()->result();
         $this->template->load('template', 'history/history', $data);
     }
+
+    public function del($id)
+    {
+        $where = array('id' => $id);
+        $this->history->del('card_log', $where);
+        redirect('history');
+    }
 }

@@ -16,6 +16,6 @@ class Device extends CI_Controller
     {
         $data['title'] = 'Data History';
         $data['history'] = $this->history->get()->result();
-        $this->template->load('template', 'device/hdevice', $data);
+        $this->template->load('template', 'device/device', $data);
     }
 }

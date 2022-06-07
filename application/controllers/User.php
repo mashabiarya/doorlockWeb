@@ -48,18 +48,18 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = "Tambah User";
-            $this->template->load('template', 'user/add', $data);
+            $this->template->load('template', 'user/form', $data);
         } else {
             $input = $this->input->post(null, true);
             $input_data = [
-                'nama'          => $input['nama'],
-                'username'      => $input['username'],
+             // 'id'            => $input['id'],
+                'name'          => $input['name'],
+                'phone'         => $input['phone'],
                 'email'         => $input['email'],
-                'no_telp'       => $input['no_telp'],
-                'role'          => $input['role'],
+                'role'          => $input['role_id'],
                 'password'      => password_hash($input['password'], PASSWORD_DEFAULT),
-                'created_at'    => time(),
-                'foto'          => 'user.png'
+                'date_created'  => time(),
+                'image'         => 'default.png'
             ];
 
             if ($this->base->insert('user', $input_data)) {
@@ -79,19 +79,19 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = "Edit User";
-            $data['user'] = $this->base->get('user', ['id_user' => $id]);
+            $data['user'] = $this->base->get('user', ['id' => $id]);
             $this->template->load('template', 'user/edit', $data);
         } else {
             $input = $this->input->post(null, true);
             $input_data = [
-                'nama'          => $input['nama'],
-                'username'      => $input['username'],
+                'name'          => $input['name'],
+             // 'username'      => $input['username'],
                 'email'         => $input['email'],
-                'no_telp'       => $input['no_telp'],
-                'role'          => $input['role']
+                'phone'         => $input['phone'],
+                'role_id'       => $input['role_id']
             ];
 
-            if ($this->base->update('user', 'id_user', $id, $input_data)) {
+            if ($this->base->update('user', 'id', $id, $input_data)) {
                 set_pesan('data berhasil diubah.');
                 redirect('user');
             } else {

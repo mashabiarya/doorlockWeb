@@ -14,4 +14,10 @@ class History_m extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    public function del($table, $where)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
 }
