@@ -16,6 +16,6 @@ class Device extends CI_Controller
     {
         $data['title'] = 'Data Device';
         $data['device'] = $this->device->get()->result();
-        $this->template->load('template', 'user/device', $data);
+        $this->template->load('template', 'device/device', $data);
     }
 }
