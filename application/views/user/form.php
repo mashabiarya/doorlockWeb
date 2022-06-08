@@ -21,43 +21,48 @@
                 </div>
             </div>
             <div class="card-body pb-2">
-                <?= $this->session->flashdata('pesan'); ?>
-                <!-- <form action="<?= site_url('karyawan/proses') ?>" method="post"> -->
-                <?php if ($page == 'add') { ?>
+                <form action="<?= site_url('user/proses')?>" method="post">
+                    <?= $this->session->flashdata('pesan'); ?>
                     <div class="row form-group">
-                        <label class="col-md-4 text-md-right" for="username">Id</label>
+                        <label class="col-md-4 text-md-right" for="name">Nama Lengkap</label>
                         <div class="col-md-6">
-                            <input value="<?= $nip ?>" type="text" id="username" name="id" class="form-control" placeholder="Username" readonly>
-                            <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
+                            <input value="<?= $row->name ?>" type="text" id="name" name="name" class="form-control" placeholder="Masukkan Name">
+                            <?= form_error('name', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                     </div>
-                <?php } ?>
-                <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="username">Nama Lengkap</label>
-                    <div class="col-md-6">
-                        <input value="<?= $row->name ?>" type="text" id="username" name="name" class="form-control" placeholder="Nama Lengkap">
-                        <input type="hidden" value="<?= $row->name ?>" name="nipedit">
-                        <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <label class="col-md-4 text-md-right" for="username">Nomor Telepon</label>
-                    <div class="col-md-6">
-                        <input value="<?= $row->phone ?>" type="text" id="username" name="name" class="form-control" placeholder="Nama Lengkap">
-                        <input type="hidden" value="<?= $row->phone ?>" name="nipedit">
-                        <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
-                    </div>
-                </div>
-                <?php if ($page == 'add') { ?>
                     <div class="row form-group">
-                        <label class="col-md-4 text-md-right" for="username">Tanggal Ditambahkan</label>
+                        <label class="col-md-4 text-md-right" for="phone">Nomor Telepon</label>
                         <div class="col-md-6">
-                            <input value="" type="date" id="username" name="date_created" class="form-control" placeholder="Nama Belakang">
-                            <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
+                            <input value="<?= $row->phone ?>" type="number" id="phone" name="phone" class="form-control" placeholder="Masukkan Nomor">
+
+                            <?= form_error('phone', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                     </div>
-                <?php } ?>
-                <?php if ($page == 'add') { ?>
+                    <div class="row form-group">
+                        <label class="col-md-4 text-md-right" for="username">Email</label>
+                        <div class="col-md-6">
+                            <input value="<?= $row->email ?>" type="text" id="email" name="email" class="form-control" placeholder="Masukkan Email">
+                            <input type="hidden" value="<?= $row->phone ?>" name="nipedit">
+                            <?= form_error('email', '<span class="text-danger small">', '</span>'); ?>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-4 text-md-right" for="username">Password</label>
+                        <div class="col-md-6">
+                            <input value="<?= $row->password ?>" type="password" id="password" name="password" class="form-control" placeholder="Masukkan password">
+
+                            <?= form_error('password', '<span class="text-danger small">', '</span>'); ?>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-4 text-md-right" for="username">Re-Password</label>
+                        <div class="col-md-6">
+                            <input value="<?= $row->password ?>" type="password" id="password2" name="password2" class="form-control" placeholder="Masukkan ulang password">
+
+                            <?= form_error('password2', '<span class="text-danger small">', '</span>'); ?>
+                        </div>
+                    </div>
+
                     <div class="row form-group justify-content-end">
                         <div class="col-md-8">
                             <button type="submit" name="<?= $page ?>" class="btn btn-primary btn-icon-split">
@@ -69,7 +74,7 @@
                             </button>
                         </div>
                     </div>
-                <?php } ?>
+
                 </form>
             </div>
         </div>

@@ -11,30 +11,28 @@ class User extends CI_Controller
             redirect('dashboard');
         }
 
-        $this->load->model('User_m', 'base');
+        $this->load->model('User_m', 'user');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
         $data['title'] = "User Management";
-        $data['users'] = $this->base->get()->result_array();
+        $data['users'] = $this->user->get()->result_array();
         $this->template->load('template', 'user/data', $data);
     }
 
     private function _validasi($mode)
     {
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required|trim');
-        $this->form_validation->set_rules('role', 'Role', 'required|trim');
+        $this->form_validation->set_rules('phone', 'Nomor Telepon', 'required|trim');
 
         if ($mode == 'add') {
-            $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|alpha_numeric');
             $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
             $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
         } else {
-            $db = $this->base->get('user', ['id' => $this->input->post('id', true)]);
+            $db = $this->user->get('user', ['id' => $this->input->post('id', true)]);
             $email = $this->input->post('email', true);
             $uniq_email = $db['email'] == $email ? '' : '|is_unique[user.email]';
 
@@ -47,28 +45,22 @@ class User extends CI_Controller
         $this->_validasi('add');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = "Tambah User";
-            $this->template->load('template', 'user/form', $data);
-        } else {
-            $input = $this->input->post(null, true);
-            $input_data = [
-             // 'id'            => $input['id'],
-                'name'          => $input['name'],
-                'phone'         => $input['phone'],
-                'email'         => $input['email'],
-                'role'          => $input['role_id'],
-                'password'      => password_hash($input['password'], PASSWORD_DEFAULT),
-                'date_created'  => time(),
-                'image'         => 'default.png'
-            ];
+            $user = new stdClass();
+            $user->name = null;
+            $user->phone = null;
+            $user->email = null;
+            $user->image = null;
+            $user->password = null;
+            $user->hire_date = null;
+            $data = array(
+                'title' => 'Tambah User',
+                'page' => 'add',
+                'row' => $user
+            );
 
-            if ($this->base->insert('user', $input_data)) {
-                set_pesan('data berhasil disimpan. Silahkan klik tombol aktivasi untuk mengaktifkan User');
-                redirect('user');
-            } else {
-                set_pesan('data gagal disimpan', false);
-                redirect('user/add');
-            }
+            $this->template->load('template', 'user/form', $data);
+            $post = $this->input->post(null, true);
+            var_dump($post);
         }
     }
 
@@ -79,19 +71,19 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = "Edit User";
-            $data['user'] = $this->base->get('user', ['id' => $id]);
+            $data['user'] = $this->user->get('user', ['id' => $id]);
             $this->template->load('template', 'user/edit', $data);
         } else {
             $input = $this->input->post(null, true);
             $input_data = [
                 'name'          => $input['name'],
-             // 'username'      => $input['username'],
+                // 'username'      => $input['username'],
                 'email'         => $input['email'],
                 'phone'         => $input['phone'],
                 'role_id'       => $input['role_id']
             ];
 
-            if ($this->base->update('user', 'id', $id, $input_data)) {
+            if ($this->user->update('user', 'id', $id, $input_data)) {
                 set_pesan('data berhasil diubah.');
                 redirect('user');
             } else {
@@ -103,7 +95,7 @@ class User extends CI_Controller
 
     public function delete($id)
     {
-        if ($this->base->delete('user', 'id', $id)) {
+        if ($this->user->delete('user', 'id', $id)) {
             set_pesan('data berhasil dihapus.');
         } else {
             set_pesan('data gagal dihapus.', false);
@@ -111,14 +103,27 @@ class User extends CI_Controller
         redirect('user');
     }
 
+    public function proses()
+    {
+        if (isset($_POST['add'])) {
+            $post = $this->input->post(null, true);
+            $this->user->add($post);
+            if ($this->db->affected_rows() > 0) {
+                set_pesan('succes', 'Data Berhasil Dismpan');
+            }
+            var_dump($post);
+            redirect('user');
+        }
+    }
+
 
     public function toggle($id)
     {
-        $status = $this->base->getUser('user', ['id' => $id])['is_active'];
+        $status = $this->user->getUser('user', ['id' => $id])['is_active'];
         $toggle = $status ? 0 : 1; //Jika user aktif maka nonaktifkan, begitu pula sebaliknya
         $pesan = $toggle ? 'user diaktifkan.' : 'user dinonaktifkan.';
 
-        if ($this->base->update('user', 'id', $id, ['is_active' => $toggle])) {
+        if ($this->user->update('user', 'id', $id, ['is_active' => $toggle])) {
             set_pesan($pesan);
         }
         redirect('user');

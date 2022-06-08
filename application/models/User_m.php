@@ -34,18 +34,32 @@ class User_m extends CI_Model
         return $query;
     }
 
+    // public function add($post)
+    // {
+    //     $params = [
+    //         'id' => $post['id'],
+    //         'name' => $post['name'],
+    //         'phone' => $post['phone'],
+    //         'email' => $post['email'],
+    //         'image' => $post['image'],
+    //         'password' => $post['password'],
+    //         'role_id' => $post['role_id'],
+    //         'is_active' => $post['is_active'],
+    //         'date_created' => $post['date_created']
+    //     ];
+    //     $this->db->insert('user', $params);
+    // }
+
     public function add($post)
     {
         $params = [
-            'id' => $post['id'],
-            'name' => $post['name'],
-            'phone' => $post['phone'],
-            'email' => $post['email'],
-            'image' => $post['image'],
-            'password' => $post['password'],
-            'role_id' => $post['role_id'],
-            'is_active' => $post['is_active'],
-            'date_created' => $post['date_created']
+            'name'          => $post['name'],
+            'phone'         => $post['phone'],
+            'email'         => $post['email'],
+            'role_id'          => 2,
+            'password'      => password_hash($post['password'], PASSWORD_DEFAULT),
+            'date_created'  => date('Y-m-d'),
+            'image'         => 'default.jpg'
         ];
         $this->db->insert('user', $params);
     }
