@@ -8,14 +8,14 @@ class Device extends CI_Controller
         parent::__construct();
         cek_login();
 
-        $this->load->model('device_m', 'device');
+        $this->load->model('Device_m', 'device');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $data['title'] = 'Data History';
-        $data['history'] = $this->history->get()->result();
-        $this->template->load('template', 'device/device', $data);
+        $data['title'] = 'Data Device';
+        $data['device'] = $this->device->get()->result();
+        $this->template->load('template', 'user/device', $data);
     }
 }

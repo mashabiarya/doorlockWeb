@@ -54,7 +54,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('user/device') ?>">
+                <a class="nav-link" href="<?= base_url('device') ?>">
                     <i class="fa-solid fa-bars-progress"></i>
                     <span>Device Management</span>
                 </a>
