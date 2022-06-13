@@ -21,11 +21,12 @@
                 </div>
             </div>
             <div class="card-body pb-2">
-                <form action="<?= site_url('user/proses')?>" method="post">
-                    <?= $this->session->flashdata('pesan'); ?>
+                <form action="<?= site_url('user/proses') ?>" method="post">
+                    <!-- <?= $this->session->flashdata('pesan'); ?> -->
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="name">Nama Lengkap</label>
                         <div class="col-md-6">
+                            <input type="hidden" value="<?= $row->id ?>" name="id_user">
                             <input value="<?= $row->name ?>" type="text" id="name" name="name" class="form-control" placeholder="Masukkan Name">
                             <?= form_error('name', '<span class="text-danger small">', '</span>'); ?>
                         </div>
@@ -49,7 +50,7 @@
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Password</label>
                         <div class="col-md-6">
-                            <input value="<?= $row->password ?>" type="password" id="password" name="password" class="form-control" placeholder="Masukkan password">
+                            <input value="" type="password" id="password" name="password" class="form-control" placeholder="Masukkan password">
 
                             <?= form_error('password', '<span class="text-danger small">', '</span>'); ?>
                         </div>
@@ -57,9 +58,9 @@
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Re-Password</label>
                         <div class="col-md-6">
-                            <input value="<?= $row->password ?>" type="password" id="password2" name="password2" class="form-control" placeholder="Masukkan ulang password">
+                            <input value="" type="password" id="passconf" name="passconf" class="form-control" placeholder="Masukkan ulang password">
 
-                            <?= form_error('password2', '<span class="text-danger small">', '</span>'); ?>
+                            <?= form_error('passconf', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                     </div>
 

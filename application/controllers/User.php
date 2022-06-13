@@ -60,38 +60,78 @@ class User extends CI_Controller
 
             $this->template->load('template', 'user/form', $data);
             $post = $this->input->post(null, true);
-            var_dump($post);
+            // var_dump($post);
         }
     }
 
     public function edit($id)
     {
-        // $id = encode_php_tags($getId);
         // $this->_validasi('edit');
 
-        if ($this->form_validation->run() == false) {
-            $data['title'] = "Edit User";
-            $data['user'] = $this->user->get('user', ['id' => $id]);
-            $this->template->load('template', 'user/edit', $data);
-        } else {
-            $input = $this->input->post(null, true);
-            $input_data = [
-                'name'          => $input['name'],
-                // 'username'      => $input['username'],
-                'email'         => $input['email'],
-                'phone'         => $input['phone'],
-                'role_id'       => $input['role_id']
-            ];
+        $this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|callback_username_check');
+        if ($this->input->post('password')) {
+            $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
+            $this->form_validation->set_rules(
+                'passconf',
+                'Password Confirmation',
+                'matches[password]',
+                array('matches' => '%s tidak sesuai')
+            );
+        }
+        if ($this->input->post('passconf')) {
+            $this->form_validation->set_rules('password', 'Password', 'min_length[5]');
+            $this->form_validation->set_rules(
+                'passconf',
+                'Password Confirmation',
+                'matches[password]',
+                array('matches' => '%s tidak sesuai')
+            );
+        }
 
-            if ($this->user->update('user', 'id', $id, $input_data)) {
-                set_pesan('data berhasil diubah.');
-                redirect('user');
-            } else {
-                set_pesan('data gagal diubah.', false);
-                redirect('user/edit/' . $id);
-            }
+        if ($this->form_validation->run() == false) {
+
+            $user = $this->user->get($id)->row();
+
+            $data = array(
+                'title' => 'Edit User',
+                'page' => 'edit',
+                'row' => $user
+            );
+
+            $this->template->load('template', 'user/form', $data);
+            $post = $this->input->post(null, true);
+            // var_dump($post);
         }
     }
+
+    // public function edit($id)
+    // {
+    //     // $id = encode_php_tags($getId);
+    //     // $this->_validasi('edit');
+
+    //     if ($this->form_validation->run() == false) {
+    //         $data['title'] = "Edit User";
+    //         $data['user'] = $this->user->get('user', ['id' => $id]);
+    //         $this->template->load('template', 'user/edit', $data);
+    //     } else {
+    //         $input = $this->input->post(null, true);
+    //         $input_data = [
+    //             'name'          => $input['name'],
+    //             // 'username'      => $input['username'],
+    //             'email'         => $input['email'],
+    //             'phone'         => $input['phone'],
+    //             'role_id'       => $input['role_id']
+    //         ];
+
+    //         if ($this->user->update('user', 'id', $id, $input_data)) {
+    //             set_pesan('data berhasil diubah.');
+    //             redirect('user');
+    //         } else {
+    //             set_pesan('data gagal diubah.', false);
+    //             redirect('user/edit/' . $id);
+    //         }
+    //     }
+    // }
 
     public function delete($id)
     {
@@ -112,6 +152,16 @@ class User extends CI_Controller
                 set_pesan('succes', 'Data Berhasil Dismpan');
             }
             var_dump($post);
+            redirect('user');
+        }
+        if (isset($_POST['edit'])) {
+            $post = $this->input->post(null, true);
+            $this->user->edit($post);
+            // var_dump($post);
+            if ($this->db->affected_rows() > 0) {
+                set_pesan('succes', 'Data Berhasil Dismpan');
+            }
+
             redirect('user');
         }
     }

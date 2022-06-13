@@ -19,6 +19,13 @@ class History extends CI_Controller
         $this->template->load('template', 'history/history', $data);
     }
 
+    public function detail($nip)
+    {
+        $data['title'] = 'Detail History';
+        $data['detail'] = $this->history->getJoin($nip)->row();
+        $this->template->load('template', 'history/detail', $data);
+    }
+
     public function del($id)
     {
         $where = array('id' => $id);

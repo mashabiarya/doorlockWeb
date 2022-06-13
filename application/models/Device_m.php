@@ -10,7 +10,7 @@ class Device_m extends CI_Model
         if ($id != null) {
             $this->db->where('id', $id);
         }
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('id', 'asc');
         $query = $this->db->get();
         return $query;
     }

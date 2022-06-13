@@ -64,6 +64,23 @@ class User_m extends CI_Model
         $this->db->insert('user', $params);
     }
 
+    public function edit($post)
+    {
+        $params = [
+            'name'          => $post['name'],
+            'phone'         => $post['phone'],
+            'email'         => $post['email'],
+            'date_created'  => date('Y-m-d'),
+            'image'         => 'default.jpg'
+        ];
+        if (!empty($post['password'])) {
+            $params['password'] = password_hash($post['password'], PASSWORD_DEFAULT);
+        }
+
+        $this->db->where('id', $post['id_user']);
+        $this->db->update('user', $params);
+    }
+
     public function delete($table, $pk, $id)
     {
         return $this->db->delete($table, [$pk => $id]);

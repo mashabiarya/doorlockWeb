@@ -34,7 +34,7 @@
                                 <td><?= $data->uidCard ?></td>
                                 <td><?= $data->datime ?></td>
                                 <td>
-                                    <a href="" class="btn btn-circle btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></a>
+                                    <a href="<?= site_url('history/detail/' . $data->id) ?>" class="btn btn-circle btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></a>
                                     <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('history/del/') . $data->id ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
                                 </td>
                             </tr>

@@ -34,6 +34,14 @@ class Dashboard extends CI_Controller
         $data['title'] = 'Dashboard';
         $this->template->load('template', 'dashboard/dashboard', $data);
     }
+
+    public function chart()
+    {
+        $data['title'] = 'Pegawai Masuk';
+        $data = $this->chart_m->get();
+        echo json_encode($data);
+    }
+
     public function percobaan()
     {
         echo " ini adalah function percobaan";
