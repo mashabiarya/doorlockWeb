@@ -46,6 +46,7 @@ class User extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $user = new stdClass();
+            $user->id = null;
             $user->name = null;
             $user->phone = null;
             $user->email = null;

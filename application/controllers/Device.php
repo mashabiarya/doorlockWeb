@@ -18,4 +18,11 @@ class Device extends CI_Controller
         $data['device'] = $this->device->get()->result();
         $this->template->load('template', 'device/device', $data);
     }
+
+    public function regis()
+    {
+        $data['title'] = 'Registrasi Device';
+        $data['device'] = $this->device->get()->result();
+        $this->template->load('template', 'device/regis', $data);
+    }
 }

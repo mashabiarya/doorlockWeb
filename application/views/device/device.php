@@ -58,6 +58,16 @@
                 <h6 class="m-0 font-weight-bold text-primary"><?= $title ?></h6>
             </div>
             <div class="card-body">
+                <div class="col-auto">
+                    <a href="<?= site_url('device/regis') ?>" class="btn btn-sm btn-primary btn-icon-split">
+                        <span class="icon">
+                            <i class="fa fa-user-plus"></i>
+                        </span>
+                        <span class="text">
+                            Registrasi Device
+                        </span>
+                    </a>
+                </div><br>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -88,5 +98,4 @@
                 </div>
             </div>
         </div>
-
     </div>
