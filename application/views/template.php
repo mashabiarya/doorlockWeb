@@ -218,42 +218,39 @@
         const baseUrl = "<?php echo base_url(); ?>"
         const chart = (chartType) => {
             $ajax({
-            url: baseUrl+'dashboard/chart',
-            dataType: 'json',
-            method: 'get',
-            success: data => {
-                let chartX = []
-                let chartY = []
-                data.map( data => {
-                    chartX.push(data.month)
-                    chartY.push(data.day)
-                })
-                const chartData = {
-                    labels: chartX,
-                    datasets: [
-                        {
+                url: baseUrl + 'dashboard/chart',
+                dataType: 'json',
+                method: 'get',
+                success: data => {
+                    let chartX = []
+                    let chartY = []
+                    data.map(data => {
+                        chartX.push(data.month)
+                        chartY.push(data.day)
+                    })
+                    const chartData = {
+                        labels: chartX,
+                        datasets: [{
                             label: 'Day',
                             data: chartY,
                             backgroundColor: ['lightcoral'],
                             borderColor: ['lightcoral'],
                             borderWidth: 4
-                        }
-                    ]
-                }
-                const ctx = document.getElementById(chartType).getContext('2d')
-                const config = {
-                    type: chartType,
-                    data: chartData
-                }
+                        }]
+                    }
+                    const ctx = document.getElementById(chartType).getContext('2d')
+                    const config = {
+                        type: chartType,
+                        data: chartData
+                    }
 
-                const chart = new Chart(ctx, config)
+                    const chart = new Chart(ctx, config)
 
-            }
-        })
+                }
+            })
         }
 
         myChart('area')
-        
     </script>
 
 </body>

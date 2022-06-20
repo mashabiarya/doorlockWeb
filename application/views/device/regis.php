@@ -21,34 +21,40 @@
                 </div>
             </div>
             <div class="card-body pb-2">
-                <form action="" method="post">
+                <form action="<?= site_url('device/proses') ?>" method="post">
                     <div class="row form-group">
-                        <label class="col-md-4 text-md-right" for="username">Nama Lengkap</label>
+                        <label class="col-md-4 text-md-right" for="username">Nama Device</label>
                         <div class="col-md-6">
-                            <input value="" type="text" id="username" name="first_name" class="form-control" placeholder="Nama Lengkap">
-                            <input type="hidden" value="" name="">
+                            <input value="<?= $row->nama ?>" type="text" min="1" max="8" id="lokasi" name="device" class="form-control" placeholder="Masukkan Nama Device">
+                            <input type="hidden" value="<?= $row->id ?>" name="id">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-md-4 text-md-right" for="username">Masukkan Mac Address</label>
+                        <div class="col-md-6">
+                            <input value="<?= $row->macAddr ?>" type="text" min="1" max="8" id="lokasi" name="mac" class="form-control" placeholder="Masukan Mac Address">
                         </div>
                     </div>
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Lokasi</label>
                         <div class="col-md-6">
-                            <input value="" type="text" id="username" name="first_name" class="form-control" placeholder="Lokasi">
+                            <input value="<?= $row->lokasi ?>" type="number" min="1" max="8" id="lokasi" name="lokasi" class="form-control" placeholder="Masukan Lokasi (1 sampai 8)">
                             <input type="hidden" value="" name="">
                         </div>
                     </div>
-                    <div class="row form-group">
+                    <!-- <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Device</label>
                         <div class="col-md-6">
-                            <select name="gender" class="form-control">
+                            <select name="device" class="form-control">
                                 <option value="">-- Pilih Device --</option>
-                                <option value="M">LoRa 1</option>
-                                <option value="F">LoRa 2</option>
+                                <option value="24:62:AB:FF:7E:1C">LoRa 1</option>
+                                <option value="58:BF:25:8B:EA:2C">LoRa 2</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row form-group justify-content-end">
                         <div class="col-md-8">
-                            <button type="submit" name="" class="btn btn-primary btn-icon-split">
+                            <button type="submit" name="<?= $page ?>" class="btn btn-primary btn-icon-split">
                                 <span class="icon"><i class="fa fa-save"></i></span>
                                 <span class="text">Simpan</span>
                             </button>

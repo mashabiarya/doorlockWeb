@@ -72,25 +72,26 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Nama</th>
+                                <th>No</th>
+                                <th>Perangkat</th>
                                 <th>Mac Address</th>
-                                <!-- <th>Status</th>
-                                <th>Last Online</th> -->
+                                <th>Lokasi</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($device as $key => $data) { ?>
+                            <?php
+                            $no = 1;
+                            foreach ($device as $key => $data) { ?>
                                 <tr>
-                                    <td><?= $data->id ?></td>
+                                    <td><?= $no++ ?></td>
                                     <td><?= $data->nama ?></td>
                                     <td><?= $data->macAddr ?></td>
-                                    <!-- <td><?= $data->status_keterangan ?></td>
-                                    <td><?= $data->lastOnline ?></td> -->
-                                    <!-- <td>
-                                        <a href="" class="btn btn-circle btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></a>
-                                        <a onclick="return confirm('Yakin ingin menghapus data?')" href="<" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
-                                    </td> -->
+                                    <td>LT <?= $data->lokasi ?></td>
+                                    <td>
+                                        <!-- <a href="" class="btn btn-circle btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></a> -->
+                                        <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('device/del/') . $data->id ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             <?php  } ?>
                         </tbody>

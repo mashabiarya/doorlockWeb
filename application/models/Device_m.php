@@ -14,4 +14,45 @@ class Device_m extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    public function getJoin($id = null)
+    {
+        $this->db->select('*');
+        $this->db->from('device');
+        if ($id != null) {
+            $this->db->where('id', $id);
+        }
+        $this->db->join('card_log', 'card_log.macAddr = device.macAddr');
+        // $this->db->join('card_log', 'card_log.macAddr = device.macAddr');
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function getJoin2($id = null)
+    {
+        $this->db->select('*');
+        $this->db->from('card_log');
+        if ($id != null) {
+            $this->db->where('id', $id);
+        }
+        $this->db->join('employees', 'employees.nip_karyawan = card_log.nip');
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function add($post)
+    {
+        $params = array(
+            'nama' => $post['device'],
+            'macAddr' => $post['mac'],
+            'lokasi' => $post['lokasi']
+        );
+        $this->db->insert('device', $params);
+    }
+
+    public function del($table, $where)
+    {
+        $this->db->where($where);
+        $this->db->delete($table);
+    }
 }

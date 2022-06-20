@@ -40,30 +40,7 @@ class User extends CI_Controller
         }
     }
 
-    public function add()
-    {
-        $this->_validasi('add');
-
-        if ($this->form_validation->run() == false) {
-            $user = new stdClass();
-            $user->id = null;
-            $user->name = null;
-            $user->phone = null;
-            $user->email = null;
-            $user->image = null;
-            $user->password = null;
-            $user->hire_date = null;
-            $data = array(
-                'title' => 'Tambah User',
-                'page' => 'add',
-                'row' => $user
-            );
-
-            $this->template->load('template', 'user/form', $data);
-            $post = $this->input->post(null, true);
-            // var_dump($post);
-        }
-    }
+    
 
     public function edit($id)
     {

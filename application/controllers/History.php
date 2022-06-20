@@ -9,6 +9,7 @@ class History extends CI_Controller
         cek_login();
 
         $this->load->model('history_m', 'history');
+        $this->load->model('device_m', 'device');
         $this->load->library('form_validation');
     }
 
@@ -16,7 +17,20 @@ class History extends CI_Controller
     {
         $data['title'] = 'Data History';
         $data['history'] = $this->history->get()->result();
+        $data['device'] = $this->device->get()->result();
         $this->template->load('template', 'history/history', $data);
+    }
+
+    public function filter()
+    {
+        $post = $this->input->post(null, TRUE);
+        $history = $this->history->getWhere($post['filter'])->result();
+        $data = array(
+            'title' => 'Filter History',
+            'history' => $history
+        );
+
+        $this->template->load('template', 'history/filter', $data);
     }
 
     public function detail($nip)

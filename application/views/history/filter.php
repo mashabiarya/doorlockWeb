@@ -2,39 +2,24 @@
 <div class="container-fluid">
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Filter Data</h6>
-        </div>
-        <div class="card-body">
-            <form action="<?= site_url('history/filter') ?>" method="POST">
-                <div class="row form-group">
-                    <label class="col-md-12" for="name">Pilih Device</label>
-                    <div class="col-md-12">
-                        <Select class="form-control" name="filter">
-                            <option>-- Pilih --</option>
-                            <?php foreach ($device as $key => $data) { ?>
-                                <option value="<?= $data->macAddr ?>"><?= $data->nama ?></option>
-                            <?php } ?>
-                        </Select>
-                    </div>
+        <div class="card-header bg-white py-3">
+            <div class="row">
+                <div class="col">
+                    <h4 class="h5 align-middle m-0 font-weight-bold text-primary">
+                        <?= $title; ?>
+                    </h4>
                 </div>
-
-                <div class="row form-group justify-content-end">
-                    <div class="col-md-12">
-                        <button type="submit" class="btn btn-primary btn-icon-split">
-                            <span class="icon"><i class="fa fa-filter"></i></span>
-                            <span class="text">Filter</span>
-                        </button>
-                    </div>
+                <div class="col-auto">
+                    <a href="<?= base_url('history') ?>" class="btn btn-sm btn-light btn-icon-split">
+                        <span class="icon">
+                            <i class="fa fa-arrow-left"></i>
+                        </span>
+                        <span class="text">
+                            Kembali
+                        </span>
+                    </a>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><?= $title ?></h6>
+            </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
