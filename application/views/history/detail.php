@@ -38,7 +38,14 @@
                 <tr>
                     <td>Jenis Kelamin</td>
                     <td>:</td>
-                    <td><?= $detail->gender ?></td>
+                    <td><?php
+                        $detail->gender == "M";
+                        if ($detail->gender == "M") {
+                            echo "Laki - laki";
+                        } else {
+                            echo "Perempuan";
+                        }
+                        ?></td>
                 </tr>
                 <tr>
                     <?php $date = new DateTime($detail->datime) ?>
@@ -55,6 +62,18 @@
                     <td>Perangkat</td>
                     <td>:</td>
                     <td><?= $detail->macAddr ?></td>
+                </tr>
+                <tr>
+                    <td>Nomor Perangkat</td>
+                    <td>:</td>
+                    <td><?php
+                        $detail->macAddr == "24:62:AB:FF:7E:1C";
+                        if ($detail->macAddr == "24:62:AB:FF:7E:1C") {
+                            echo "LoRa 1";
+                        } else {
+                            echo "LoRa 2";
+                        }
+                        ?></td>
                 </tr>
             </table>
         </div>

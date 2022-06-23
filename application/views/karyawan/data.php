@@ -37,7 +37,14 @@
                                 <td><?= $data->birth_date ?></td>
                                 <td><?= $data->first_name ?></td>
                                 <td><?= $data->last_name ?></td>
-                                <td><?= $data->gender ?></td>
+                                <td><?php
+                                    $data->gender == "M";
+                                    if ($data->gender == "M") {
+                                        echo "Laki - laki";
+                                    } else {
+                                        echo "Perempuan";
+                                    }
+                                    ?></td>
                                 <td><?= $data->hire_date ?></td>
                                 <td>
                                     <a href="<?= base_url('karyawan/edit/') . $data->nip_karyawan ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
