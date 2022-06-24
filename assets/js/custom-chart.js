@@ -2,7 +2,7 @@ $.ajax({
   url: base_url + 'dashboard/chart_pegawai_masuk',
   type: 'GET',
   dataType: 'JSON',
-  success: function (data) {
+  success: function(data) {
     var ctx = document.getElementById("pegawaiBarChart");
     var myBarChart = new Chart(ctx, {
       type: 'bar',
@@ -106,7 +106,7 @@ $.ajax({
       },
     });
   },
-  failure: function () {
+  failure: function() {
     console.error('Gagal mengambil data');
   }
 });
@@ -118,7 +118,7 @@ $.ajax({
     mac_mesin: '24:62:AB:FF:7E:1C'
   },
   dataType: 'JSON',
-  success: function (data) {
+  success: function(data) {
     var ctx = document.getElementById("mesin1AreaChart");
     var myLineChart = new Chart(ctx, {
       type: 'line',
@@ -154,7 +154,7 @@ $.ajax({
           pointBorderWidth: 2,
           data: data.value[1],
         }
-        ],
+      ],
       },
       options: {
         maintainAspectRatio: false,
@@ -214,7 +214,7 @@ $.ajax({
       }
     });
   },
-  failure: function () {
+  failure: function() {
     console.error('Gagal mengambil data');
   }
 });
@@ -226,7 +226,7 @@ $.ajax({
     mac_mesin: '58:BF:25:8B:EA:2C'
   },
   dataType: 'JSON',
-  success: function (data) {
+  success: function(data) {
     var ctx = document.getElementById("mesin2AreaChart");
     var myLineChart = new Chart(ctx, {
       type: 'line',
@@ -262,7 +262,7 @@ $.ajax({
           pointBorderWidth: 2,
           data: data.value[1],
         }
-        ],
+      ],
       },
       options: {
         maintainAspectRatio: false,
@@ -322,7 +322,7 @@ $.ajax({
       }
     });
   },
-  failure: function () {
+  failure: function() {
     console.error('Gagal mengambil data');
   }
 });

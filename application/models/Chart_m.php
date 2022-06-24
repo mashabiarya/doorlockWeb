@@ -21,43 +21,38 @@ class Chart_m extends CI_Model
         return $this->db->get('card_log')->result();
     }
 
-    public function get_absensi()
-    {
-        $header = [];
-        $value = [];
-        $data = $this->db->select('nip, COUNT(id) AS value')->group_by('nip')->get('card_log')->result_array();
+    public function get_absensi(){
+      $header = []; $value = [];
+      $data = $this->db->select('nip, COUNT(id) AS value')->group_by('nip')->get('card_log')->result_array();
 
-        foreach ($data as $d) {
-            $header[] = $d['nip'];
-            $value[] = intval($d['value']);
-        }
+      foreach ($data as $d) {
+        $header[] = $d['nip'];
+        $value[] = intval($d['value']);
+      }
 
-        return [
-            'header' => $header,
-            'value' => $value
-        ];
+      return [
+        'header' => $header,
+        'value' => $value
+      ];
     }
 
-    public function get_rssi_snr_mesin($mac_mesin)
-    {
-        $header = [];
-        $rssi = [];
-        $snr = [];
+    public function get_rssi_snr_mesin($mac_mesin) {
+      $header = []; $rssi = []; $snr = [];
 
-        $this->db->select('rssi, snr, `timestamp`');
-        $this->db->where('macAddr', $mac_mesin);
-        $this->db->order_by('timestamp', 'desc')->limit(20, 0);
-        $data = $this->db->get('card_log')->result_array();
+      $this->db->select('rssi, snr, `timestamp`');
+      $this->db->where('macAddr', $mac_mesin);
+      $this->db->order_by('timestamp', 'desc')->limit(20, 0);
+      $data = $this->db->get('card_log')->result_array();
 
-        foreach ($data as $d) {
-            $header[] = $d['timestamp'];
-            $rssi[] = intval($d['rssi']);
-            $snr[] = intval($d['snr']);
-        }
+      foreach ($data as $d) {
+        $header[] = $d['timestamp'];
+        $rssi[] = intval($d['rssi']);
+        $snr[] = intval($d['snr']);
+      }
 
-        return [
-            'header' => $header,
-            'value' => [$rssi, $snr]
-        ];
+      return [
+        'header' => $header,
+        'value' => [$rssi, $snr]
+      ];
     }
 }
