@@ -50,6 +50,18 @@ class Device_m extends CI_Model
         $this->db->insert('device', $params);
     }
 
+    public function edit($post)
+    {
+        $params = [
+            'nama' => $post['nama'],
+            'macAddr' => $post['macAddr'],
+            'lokasi' => $post['lokasi']
+        ];
+        $this->db->where('id', $post['idedit']);
+        $this->db->update('device', $params);
+    }
+
+
     public function del($table, $where)
     {
         $this->db->where($where);

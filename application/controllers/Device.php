@@ -16,6 +16,8 @@ class Device extends CI_Controller
     {
         $data['title'] = 'Data Device';
         $data['device'] = $this->device->get()->result();
+        $data['stat_mesin1'] = $this->device->get(1)->result()[0]->status_keterangan;
+        $data['stat_mesin2'] = $this->device->get(2)->result()[0]->status_keterangan;
         $this->template->load('template', 'device/device', $data);
     }
 
@@ -55,6 +57,26 @@ class Device extends CI_Controller
             }
             redirect('device');
         }
+    }
+
+    public function edit($id)
+    {
+        $device = $this->device->get($id)->row();
+
+        // Menggenerate nip_karyawan
+        $kode_terakhir = $this->device->getMax('device', 'id');
+        $kode_tambah = substr($kode_terakhir, -5, 5);
+        $kode_tambah++;
+        $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+
+        $data = array(
+            'title' => 'Edit Device',
+            'page' => 'edit',
+            'row' => $device,
+            'id' => $number
+        );
+
+        $this->template->load('template', 'device/edit', $data);
     }
 
     public function del($id)
