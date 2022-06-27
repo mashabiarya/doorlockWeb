@@ -43,7 +43,6 @@
                         <tr>
                             <th>id</th>
                             <th>NIP</th>
-                            <th>Timestamp</th>
                             <th>Rssi</th>
                             <th>Snr</th>
                             <th>Mac Address</th>
@@ -57,7 +56,6 @@
                             <tr>
                                 <td><?= $data->id ?></td>
                                 <td><?= $data->nip ?></td>
-                                <td><?= $data->timestamp ?></td>
                                 <td><?= $data->rssi ?></td>
                                 <td><?= $data->snr ?></td>
                                 <td><?= $data->macAddr ?></td>

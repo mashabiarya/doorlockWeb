@@ -21,6 +21,7 @@
                 </div>
             </div>
             <div class="card-body pb-2">
+                <?= $this->session->flashdata('pesan'); ?>
                 <form action="<?= site_url('device/proses') ?>" method="post">
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Nama Device</label>
@@ -32,7 +33,13 @@
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Masukkan Mac Address</label>
                         <div class="col-md-6">
-                            <input value="<?= $row->macAddr ?>" type="text" min="1" max="8" id="lokasi" name="mac" class="form-control" placeholder="Masukan Mac Address">
+                            <input value="" type="text" id="lokasi" name="macAddr" class="form-control" placeholder="Masukan Mac Address">
+                            <?php
+                            if ($page == 'edit') { ?>
+                                <small style="color:brown;">Biarkan kosong jika tidak ada perubahan</small>
+                            <?php }
+                            ?>
+
                         </div>
                     </div>
                     <div class="row form-group">
@@ -42,16 +49,6 @@
                             <input type="hidden" value="" name="">
                         </div>
                     </div>
-                    <!-- <div class="row form-group">
-                        <label class="col-md-4 text-md-right" for="username">Device</label>
-                        <div class="col-md-6">
-                            <select name="device" class="form-control">
-                                <option value="">-- Pilih Device --</option>
-                                <option value="24:62:AB:FF:7E:1C">LoRa 1</option>
-                                <option value="58:BF:25:8B:EA:2C">LoRa 2</option>
-                            </select>
-                        </div>
-                    </div> -->
                     <div class="row form-group justify-content-end">
                         <div class="col-md-8">
                             <button type="submit" name="<?= $page ?>" class="btn btn-primary btn-icon-split">

@@ -21,6 +21,30 @@ class Device extends CI_Controller
         $this->template->load('template', 'device/device', $data);
     }
 
+    private function _validasi($page)
+    {
+        // $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        // $this->form_validation->set_rules('no_telp', 'Nomor Telepon', 'required|trim');
+        // $this->form_validation->set_rules('role', 'Role', 'required|trim');
+
+        if ($page == 'add') {
+            $this->form_validation->set_rules('macAddr', 'MacAddr', 'required|trim|is_unique[device.macAddr]');
+            // $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+            // $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
+            // $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
+        } else {
+            $db = $this->admin->get('user', ['id_user' => $this->input->post('id_user', true)]);
+            $username = $this->input->post('username', true);
+            $email = $this->input->post('email', true);
+
+            $uniq_username = $db['username'] == $username ? '' : '|is_unique[user.username]';
+            $uniq_email = $db['email'] == $email ? '' : '|is_unique[user.email]';
+
+            $this->form_validation->set_rules('username', 'Username', 'required|trim|alpha_numeric' . $uniq_username);
+            $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email' . $uniq_email);
+        }
+    }
+
     public function detail($id)
     {
         $data['title'] = 'Detail History';
@@ -51,12 +75,27 @@ class Device extends CI_Controller
     {
         $post = $this->input->post(null, TRUE);
         if (isset($_POST['add'])) {
-            $this->device->add($post);
+            $cek_mac = $this->device->getMac($post);
+            if ($cek_mac->row() > 0) {
+                set_pesan('Mac Address Sudah Terdaftar', false);
+                redirect('device/regis');
+            } else {
+                $this->device->add($post);
+                // var_dump($post);
+                if ($this->db->affected_rows() > 0) {
+                    set_pesan('Data Berhasil Diinput');
+                }
+            }
+            redirect('device');
+        } elseif (isset($_POST['edit'])) {
+            // $cek_mac = $this->device->getMac($post);
+            $this->device->edit($post);
+            // var_dump($post);
             if ($this->db->affected_rows() > 0) {
                 set_pesan('Data Berhasil Diinput');
             }
-            redirect('device');
         }
+        redirect('device');
     }
 
     public function edit($id)
@@ -64,19 +103,18 @@ class Device extends CI_Controller
         $device = $this->device->get($id)->row();
 
         // Menggenerate nip_karyawan
-        $kode_terakhir = $this->device->getMax('device', 'id');
-        $kode_tambah = substr($kode_terakhir, -5, 5);
-        $kode_tambah++;
-        $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
+        // $kode_terakhir = $this->device->getMax('device', 'id');
+        // $kode_tambah = substr($kode_terakhir, -5, 5);
+        // $kode_tambah++;
+        // $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
 
         $data = array(
             'title' => 'Edit Device',
             'page' => 'edit',
             'row' => $device,
-            'id' => $number
         );
 
-        $this->template->load('template', 'device/edit', $data);
+        $this->template->load('template', 'device/regis', $data);
     }
 
     public function del($id)

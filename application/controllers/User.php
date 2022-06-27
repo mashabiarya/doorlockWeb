@@ -40,7 +40,7 @@ class User extends CI_Controller
         }
     }
 
-    
+
 
     public function edit($id)
     {
@@ -127,7 +127,7 @@ class User extends CI_Controller
             $post = $this->input->post(null, true);
             $this->user->add($post);
             if ($this->db->affected_rows() > 0) {
-                set_pesan('succes', 'Data Berhasil Dismpan');
+                set_pesan('success', 'Data Berhasil Dismpan');
             }
             var_dump($post);
             redirect('user');
@@ -137,7 +137,7 @@ class User extends CI_Controller
             $this->user->edit($post);
             // var_dump($post);
             if ($this->db->affected_rows() > 0) {
-                set_pesan('succes', 'Data Berhasil Dismpan');
+                set_pesan('success', 'Data Berhasil Dismpan');
             }
 
             redirect('user');

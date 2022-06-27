@@ -69,6 +69,7 @@ class Auth extends CI_Controller
 
     public function register()
     {
+        $this->_has_login();
         // $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|alpha_numeric');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
         $this->form_validation->set_rules('password2', 'Konfirmasi Password', 'matches[password]|trim');
@@ -94,6 +95,44 @@ class Auth extends CI_Controller
             } else {
                 set_pesan('gagal menyimpan ke database', false);
                 redirect('register');
+            }
+        }
+    }
+
+    public function reset()
+    {
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[3]|trim');
+        $this->form_validation->set_rules('password2', 'Password', 'matches[password]|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+
+        // function cek_password()
+        // {
+        //     if (stristr($str, '@uni-email-1.com') !== false) return true;
+        //     if (stristr($str, '@uni-email-2.com') !== false) return true;
+        //     if (stristr($str, '@uni-email-3.com') !== false) return true;
+        //     $this->form_validation->set_message('email', 'Please provide an acceptable email address.');
+        //     return FALSE;
+        // }
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Change Password';
+            $this->template->load('temp/tempauth', 'auth/reset', $data);
+        } else {
+            $input = $this->input->post(null, true);
+            unset($input['password2']);
+            $input['password']      = password_hash($input['password'], PASSWORD_DEFAULT);
+            $input['role_id']          = '2';
+            $input['image']          = 'default.jpg';
+            $input['is_active']     = 1;
+
+            $this->db->where('email', $input['email']);
+            $query = $this->db->update('user', $input);
+            if ($query) {
+                set_pesan('Reset password berhasil.');
+                redirect('auth');
+            } else {
+                set_pesan('gagal menyimpan ke database', false);
+                redirect('reset');
             }
         }
     }

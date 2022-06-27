@@ -25,4 +25,9 @@ class Auth_m extends CI_Model
     {
         return $this->db->get_where('user', ['email' => $email])->row_array();
     }
+
+    public function update($input = null)
+    {
+        # code...
+    }
 }

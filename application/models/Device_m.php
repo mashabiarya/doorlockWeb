@@ -28,6 +28,15 @@ class Device_m extends CI_Model
         return $query;
     }
 
+    public function getMac($post)
+    {
+        $this->db->select('*');
+        $this->db->from('device');
+        $this->db->where('macAddr', $post['macAddr']);
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function getJoin2($id = null)
     {
         $this->db->select('*');
@@ -44,7 +53,7 @@ class Device_m extends CI_Model
     {
         $params = array(
             'nama' => $post['device'],
-            'macAddr' => $post['mac'],
+            'macAddr' => $post['macAddr'],
             'lokasi' => $post['lokasi']
         );
         $this->db->insert('device', $params);
@@ -53,11 +62,13 @@ class Device_m extends CI_Model
     public function edit($post)
     {
         $params = [
-            'nama' => $post['nama'],
-            'macAddr' => $post['macAddr'],
+            'nama' => $post['device'],
             'lokasi' => $post['lokasi']
         ];
-        $this->db->where('id', $post['idedit']);
+        if ($post['macAddr'] != null) {
+            $params = ['macAddr' => $post['macAddr']];
+        }
+        $this->db->where('id', $post['id']);
         $this->db->update('device', $params);
     }
 
