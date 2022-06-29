@@ -27,7 +27,7 @@
                         <div class="row form-group">
                             <label class="col-md-4 text-md-right" for="username">nip_karyawan</label>
                             <div class="col-md-6">
-                                <input value="<?= $nip_karyawan ?>" type="text" id="username" name="nip_karyawan" class="form-control" placeholder="Username" readonly>
+                                <input value="<?= $emp_no ?>" type="text" id="username" name="emp_no" class="form-control" placeholder="Username" readonly>
                                 <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <label class="col-md-4 text-md-right" for="username">Nama Depan</label>
                         <div class="col-md-6">
                             <input value="<?= $row->first_name ?>" type="text" id="username" name="first_name" class="form-control" placeholder="Nama Depan">
-                            <input type="hidden" value="<?= $row->nip_karyawan ?>" name="nip_karyawanedit">
+                            <input type="hidden" value="<?= $row->emp_no ?>" name="emp_noedit">
                             <?= form_error('username', '<span class="text-danger small">', '</span>'); ?>
                         </div>
                     </div>

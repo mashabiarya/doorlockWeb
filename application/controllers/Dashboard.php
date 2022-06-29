@@ -34,8 +34,8 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-		$data['stat_mesin1'] = $this->device->get(1)->result()[0]->status_keterangan;
-		$data['stat_mesin2'] = $this->device->get(2)->result()[0]->status_keterangan;
+        $data['stat_mesin1'] = $this->device->get(1)->result()[0]->status_keterangan;
+        $data['stat_mesin2'] = $this->device->get(20)->result()[0]->status_keterangan;
         $this->template->load('template', 'dashboard/dashboard', $data);
     }
 
@@ -46,13 +46,15 @@ class Dashboard extends CI_Controller
         echo json_encode($data);
     }
 
-    public function chart_pegawai_masuk(){
-      echo json_encode($this->chart->get_absensi());
+    public function chart_pegawai_masuk()
+    {
+        echo json_encode($this->chart->get_absensi());
     }
 
-    public function chart_rssi_snr(){
-      $mac_mesin = $this->input->post('mac_mesin');
-      echo json_encode($this->chart->get_rssi_snr_mesin($mac_mesin));
+    public function chart_rssi_snr()
+    {
+        $mac_mesin = $this->input->post('mac_mesin');
+        echo json_encode($this->chart->get_rssi_snr_mesin($mac_mesin));
     }
 
     public function percobaan()

@@ -19,7 +19,7 @@
     <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script type="text/javascript">
-      var base_url = "<?= base_url() ?>" + "/";
+        var base_url = "<?= base_url() ?>" + "/";
     </script>
 </head>
 
@@ -71,12 +71,17 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
+                <a class="nav-link" href="<?= site_url('perso') ?>">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <span>Perso</span></a>
+            </li>
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
                 <a class="nav-link" href="<?= site_url('history') ?>">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                     <span>History</span></a>
             </li>
-
-
 
             <?php if (is_admin()) { ?>
                 <hr class="sidebar-divider">

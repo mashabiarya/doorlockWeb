@@ -22,7 +22,7 @@ class History_m extends CI_Model
         if ($id != null) {
             $this->db->where('card_log.macAddr', $id);
         }
-        // $this->db->join('employees', 'employees.nip_karyawan = card_log.nip');
+        // $this->db->join('employees', 'employees.emp_no = card_log.nip');
         $this->db->join('device', 'device.macAddr = card_log.macAddr');
         $query = $this->db->get();
         return $query;
@@ -35,7 +35,7 @@ class History_m extends CI_Model
         if ($id != null) {
             $this->db->where('id', $id);
         }
-        $this->db->join('employees', 'employees.nip_karyawan = card_log.nip');
+        $this->db->join('employees', 'employees.emp_no = card_log.nip');
         $query = $this->db->get();
         return $query;
     }

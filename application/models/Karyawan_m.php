@@ -3,23 +3,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Karyawan_m extends CI_Model
 {
-    public function get($nip_karyawan = null)
+    public function get($emp_no = null)
     {
         $this->db->select('*');
         $this->db->from('employees');
-        if ($nip_karyawan != null) {
-            $this->db->where('nip_karyawan', $nip_karyawan);
+        if ($emp_no != null) {
+            $this->db->where('emp_no', $emp_no);
         }
-        $this->db->order_by('nip_karyawan', 'desc');
+        $this->db->order_by('emp_no', 'desc');
         $query = $this->db->get();
         return $query;
     }
 
-    public function getMax($table, $field, $nip_karyawan = null)
+    public function getMax($table, $field, $emp_no = null)
     {
         $this->db->select_max($field);
-        if ($nip_karyawan != null) {
-            $this->db->like($field, $nip_karyawan, 'after');
+        if ($emp_no != null) {
+            $this->db->like($field, $emp_no, 'after');
         }
         return $this->db->get($table)->row_array()[$field];
     }
@@ -27,7 +27,7 @@ class Karyawan_m extends CI_Model
     public function add($post)
     {
         $params = [
-            'nip_karyawan' => $post['nip_karyawan'],
+            'emp_no' => $post['emp_no'],
             'first_name' => $post['first_name'],
             'last_name' => $post['last_name'],
             'gender' => $post['gender'],
@@ -43,7 +43,7 @@ class Karyawan_m extends CI_Model
             'first_name' => $post['first_name'],
             'last_name' => $post['last_name']
         ];
-        $this->db->where('nip_karyawan', $post['nip_karyawanedit']);
+        $this->db->where('emp_no', $post['emp_noedit']);
         $this->db->update('employees', $params);
     }
 

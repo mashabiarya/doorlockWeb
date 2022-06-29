@@ -45,7 +45,7 @@
                     <div class="row form-group">
                         <label class="col-md-4 text-md-right" for="username">Lokasi</label>
                         <div class="col-md-6">
-                            <input value="<?= $row->lokasi ?>" type="number" min="1" max="8" id="lokasi" name="lokasi" class="form-control" placeholder="Masukan Lokasi (1 sampai 8)">
+                            <input value="<?= $row->lokasi ?>" type="text" min="1" max="8" id="lokasi" name="lokasi" class="form-control" placeholder="Masukan Lokasi">
                             <input type="hidden" value="" name="">
                         </div>
                     </div>

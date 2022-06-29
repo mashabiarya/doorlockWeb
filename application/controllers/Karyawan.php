@@ -22,7 +22,7 @@ class Karyawan extends CI_Controller
     public function add()
     {
         $karyawan = new stdClass();
-        $karyawan->nip_karyawan = null;
+        $karyawan->emp_no = null;
         $karyawan->birth_date = null;
         $karyawan->first_name = null;
         $karyawan->last_name = null;
@@ -30,7 +30,7 @@ class Karyawan extends CI_Controller
         $karyawan->hire_date = null;
 
         // Mengenerate nip_karyawan
-        $kode_terakhir = $this->karyawan->getMax('employees', 'nip_karyawan');
+        $kode_terakhir = $this->karyawan->getMax('employees', 'emp_no');
         $kode_tambah = substr($kode_terakhir, -5, 5);
         $kode_tambah++;
         $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
@@ -39,18 +39,18 @@ class Karyawan extends CI_Controller
             'title' => 'Tambah Karyawan',
             'page' => 'add',
             'row' => $karyawan,
-            'nip_karyawan' => $number
+            'emp_no' => $number
         );
 
         $this->template->load('template', 'karyawan/form', $data);
     }
 
-    public function edit($nip_karyawan)
+    public function edit($emp_no)
     {
-        $karyawan = $this->karyawan->get($nip_karyawan)->row();
+        $karyawan = $this->karyawan->get($emp_no)->row();
 
         // Menggenerate nip_karyawan
-        $kode_terakhir = $this->karyawan->getMax('employees', 'nip_karyawan');
+        $kode_terakhir = $this->karyawan->getMax('employees', 'emp_no');
         $kode_tambah = substr($kode_terakhir, -5, 5);
         $kode_tambah++;
         $number = str_pad($kode_tambah, 5, '0', STR_PAD_LEFT);
@@ -59,7 +59,7 @@ class Karyawan extends CI_Controller
             'title' => 'Edit Karyawan',
             'page' => 'edit',
             'row' => $karyawan,
-            'nip_karyawan' => $number
+            'emp_no' => $number
         );
 
         $this->template->load('template', 'karyawan/form', $data);
@@ -86,9 +86,9 @@ class Karyawan extends CI_Controller
         }
     }
 
-    public function del($nip_karyawan)
+    public function del($emp_no)
     {
-        $where = array('nip_karyawan' => $nip_karyawan);
+        $where = array('emp_no' => $emp_no);
         $this->karyawan->del('employees', $where);
         redirect('karyawan');
     }

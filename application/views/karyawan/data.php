@@ -33,7 +33,7 @@
                     <tbody>
                         <?php foreach ($karyawan as $key => $data) { ?>
                             <tr>
-                                <td><?= $data->nip_karyawan ?></td>
+                                <td><?= $data->emp_no ?></td>
                                 <td><?= $data->birth_date ?></td>
                                 <td><?= $data->first_name ?></td>
                                 <td><?= $data->last_name ?></td>
@@ -47,8 +47,8 @@
                                     ?></td>
                                 <td><?= $data->hire_date ?></td>
                                 <td>
-                                    <a href="<?= base_url('karyawan/edit/') . $data->nip_karyawan ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
-                                    <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('karyawan/del/') . $data->nip_karyawan ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
+                                    <a href="<?= base_url('karyawan/edit/') . $data->emp_no ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
+                                    <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('karyawan/del/') . $data->emp_no ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
                                 </td>
                             </tr>
                         <?php  } ?>

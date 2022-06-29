@@ -13,7 +13,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">LoRa 1</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= strtoupper($stat_mesin1) ?></div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= empty($stat_mesin1) ? 'NONAKTIF' : strtoupper($stat_mesin1) ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-door-open fa-2x text-gray-300"></i>
@@ -30,7 +30,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">LoRa 2</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= strtoupper($stat_mesin2) ?></div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><?= empty($stat_mesin2) ? 'NONAKTIF' : strtoupper($stat_mesin2) ?></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-door-open fa-2x text-gray-300"></i>
@@ -82,7 +82,7 @@
                                     <td><?= $no++ ?></td>
                                     <td><?= $data->nama ?></td>
                                     <td><?= $data->macAddr ?></td>
-                                    <td>LT <?= $data->lokasi ?></td>
+                                    <td><?= $data->lokasi ?></td>
                                     <td>
                                         <a href="<?= site_url('device/edit/' . $data->id) ?>" class="btn btn-circle btn-sm btn-warning"><i class="fa fa-fw fa-edit"></i></a>
                                         <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('device/del/') . $data->id ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>
