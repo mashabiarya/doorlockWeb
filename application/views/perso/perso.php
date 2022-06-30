@@ -23,7 +23,14 @@
                                 <td><?= $data->emp_no ?></td>
                                 <td><?= $data->tanggal ?></td>
                                 <td><?= $data->expired ?></td>
-                                <td><?= $data->active ?></td>
+                                <td><?php
+                                    $data->active == "1";
+                                    if ($data->active == "1") {
+                                        echo "Aktif";
+                                    } else {
+                                        echo "Nonaktif";
+                                    }
+                                    ?></td>
                                 <td>
                                     <a href="<?= site_url('perso/detail/' . $data->serial) ?>" class="btn btn-circle btn-sm btn-primary"><i class="fa-solid fa-circle-info"></i></a>
                                     <a onclick="return confirm('Yakin ingin menghapus data?')" href="<?= base_url('perso/del/') . $data->serial ?>" class="btn btn-circle btn-sm btn-danger"><i class="fa fa-fw fa-trash"></i></a>

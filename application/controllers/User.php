@@ -40,7 +40,29 @@ class User extends CI_Controller
         }
     }
 
+    public function add()
+    {
+        $this->_validasi('add');
 
+        if ($this->form_validation->run() == false) {
+            $user = new stdClass();
+            $user->id = null;
+            $user->name = null;
+            $user->phone = null;
+            $user->email = null;
+            $user->image = null;
+            $user->password = null;
+            $user->hire_date = null;
+            $data = array(
+                'title' => 'Tambah User',
+                'page' => 'add',
+                'row' => $user
+            );
+            $this->template->load('template', 'user/form', $data);
+            $post = $this->input->post(null, true);
+            // var_dump($post);
+        }
+    }
 
     public function edit($id)
     {
@@ -81,35 +103,6 @@ class User extends CI_Controller
             // var_dump($post);
         }
     }
-
-    // public function edit($id)
-    // {
-    //     // $id = encode_php_tags($getId);
-    //     // $this->_validasi('edit');
-
-    //     if ($this->form_validation->run() == false) {
-    //         $data['title'] = "Edit User";
-    //         $data['user'] = $this->user->get('user', ['id' => $id]);
-    //         $this->template->load('template', 'user/edit', $data);
-    //     } else {
-    //         $input = $this->input->post(null, true);
-    //         $input_data = [
-    //             'name'          => $input['name'],
-    //             // 'username'      => $input['username'],
-    //             'email'         => $input['email'],
-    //             'phone'         => $input['phone'],
-    //             'role_id'       => $input['role_id']
-    //         ];
-
-    //         if ($this->user->update('user', 'id', $id, $input_data)) {
-    //             set_pesan('data berhasil diubah.');
-    //             redirect('user');
-    //         } else {
-    //             set_pesan('data gagal diubah.', false);
-    //             redirect('user/edit/' . $id);
-    //         }
-    //     }
-    // }
 
     public function delete($id)
     {

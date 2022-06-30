@@ -62,6 +62,23 @@
                     <td>:</td>
                     <td><?= $detail->hire_date ?></td>
                 </tr>
+                <tr>
+                    <td>Expired</td>
+                    <td>:</td>
+                    <td><?= $detail->expired ?></td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>:</td>
+                    <td><?php
+                        $detail->active == "1";
+                        if ($detail->active == "1") {
+                            echo "Aktif";
+                        } else {
+                            echo "Nonaktif";
+                        }
+                        ?></td>
+                </tr>
             </table>
         </div>
     </div>
