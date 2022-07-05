@@ -16,8 +16,10 @@ class Device extends CI_Controller
     {
         $data['title'] = 'Data Device';
         $data['device'] = $this->device->get()->result();
-        $data['stat_mesin1'] = $this->device->get(1)->result()[0]->status_keterangan;
-        $data['stat_mesin2'] = $this->device->get(20)->result()[0]->status_keterangan;
+        // $where = array('nama' => 'LoRa 2');
+        // $data['stat_mesin1'] = $this->device->get()->result()[0]->status_keterangan;
+        // $data['stat_mesin2'] = $this->device->get()->result()[0]->status_keterangan;
+        $data['mesin'] = $this->device->get()->result();
         $this->template->load('template', 'device/device', $data);
     }
 

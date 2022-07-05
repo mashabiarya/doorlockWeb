@@ -34,8 +34,10 @@ class Dashboard extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $data['stat_mesin1'] = $this->device->get(1)->result()[0]->status_keterangan;
-        $data['stat_mesin2'] = $this->device->get(20)->result()[0]->status_keterangan;
+        $data['device'] = $this->device->get()->result();
+        // $data['stat_mesin1'] = $this->device->get(1)->result()[0]->status_keterangan;
+        // $data['stat_mesin2'] = $this->device->get(20)->result()[0]->status_keterangan;
+        $data['mesin'] = $this->device->get()->result();
         $this->template->load('template', 'dashboard/dashboard', $data);
     }
 

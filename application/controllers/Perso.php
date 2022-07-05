@@ -40,9 +40,9 @@ class Perso extends CI_Controller
         $this->template->load('template', 'perso/detail', $data);
     }
 
-    public function del($id)
+    public function del($serial)
     {
-        $where = array('id' => $id);
+        $where = array('serial' => $serial);
         $this->perso->del('perso', $where);
         redirect('perso');
     }
