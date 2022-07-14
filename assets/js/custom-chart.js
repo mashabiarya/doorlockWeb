@@ -115,7 +115,7 @@ $.ajax({
   url: base_url + 'dashboard/chart_rssi_snr',
   type: 'POST',
   data: {
-    mac_mesin: '24:62:AB:FF:7E:1C'
+    mac_mesin: '7C:9E:BD:F1:7B:4C'
   },
   dataType: 'JSON',
   success: function(data) {
